@@ -672,13 +672,18 @@ def check_words_found():
     wordset = set(words)
     #total words found
     totalwords = len(wordset)
-    word_answer_list=list(filter(lambda x: len(x)>2 , wordset))
+    word_answer_list=sorted(list(filter(lambda x: len(x)>2 , wordset)))
     #words that match the dictionary and the players list
     correct_words=get_game_score(player_word_list, word_answer_list)
     #displays the biggest word found by the computer
     biggest_word_found=max(word_answer_list, key=len)
     
     global gridString, dt_string_date, dt_string_time
+    #store the list of words found within the grid
+    words_found_txt=open('wordconx_found_words.txt',"a")
+    words_found_txt.write("\n"+str(gridString)+','+' '.join(word_answer_list))
+    words_found_txt.close()
+    
     #open a text file to append all of the games data
     raw_data=open('wordconx_raw_data.txt',"a")
     raw_data.write("\n"+dt_string_date+','+dt_string_time+','+str(gridString)+','+' '.join(player_word_list)+','+str(correct_words)+','+str(totalwords)+','+str(biggest_word_found))
