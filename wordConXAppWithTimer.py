@@ -307,9 +307,9 @@ def end_game():
     #reset timer display
     user_input =np.round(minute*60 + second,1)
     timerCheck=False    #turn timer off
-    minute=2
-    second=30
-    btn_start["text"]='Start!'
+    minute=0
+    second=0
+    btn_start["text"]='Reset!'
     mins_box["text"]=minute
     sec_box["text"]=second
     
@@ -447,7 +447,10 @@ def valid_move_check(word_path, current_position):
           (3, 2): [(2, 1), (3, 1), (3, 3), (2, 3), (2, 2)],
           (3, 3): [(2, 2), (3, 2), (2, 3)]}
     #print(word_path)
-    previous_position=word_path[0]
+    if bool(word_path) == False: #if grid dice has been clicked and then removed check  here and allow to be re clicked to start word
+        return True
+    else:
+        previous_position=word_path[0]
     #print(previous_position)
     if previous_position != 0:
         #print('not first string')
@@ -459,7 +462,7 @@ def valid_move_check(word_path, current_position):
             return False
     else:
         return True
-    
+
 #define all of the button clicks here, each will add the letter displayed to a string that can be saved
 def dice0_button_click():
     global position0, word_path, buttons_pressed
@@ -764,6 +767,241 @@ def dice15_button_click():
         else:
             messagebox.showinfo(title="Input error", message="You can only choose adjacent tiles!") 
 
+#function for each button that allows the button to be clicked to uncheck it, can only be the last letter of the word input
+def right_click_dice0(event):
+    #check to only delete letter if it was the last one pressed
+    if position0 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position0)
+        word_path.remove(position0)
+        #reset the current string
+        current_string.remove(grid0)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice0.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice1(event):
+    #check to only delete letter if it was the last one pressed
+    if position1 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position1)
+        word_path.remove(position1)
+        #reset the current string
+        current_string.remove(grid1)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice1.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice2(event):
+    #check to only delete letter if it was the last one pressed
+    if position2 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position2)
+        word_path.remove(position2)
+        #reset the current string
+        current_string.remove(grid2)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice2.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice3(event):
+    #check to only delete letter if it was the last one pressed
+    if position3 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position3)
+        word_path.remove(position3)
+        #reset the current string
+        current_string.remove(grid3)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice3.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+        
+def right_click_dice4(event):
+    #check to only delete letter if it was the last one pressed
+    if position4 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position4)
+        word_path.remove(position4)
+        #reset the current string
+        current_string.remove(grid4)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice4.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+        
+def right_click_dice5(event):
+    #check to only delete letter if it was the last one pressed
+    if position5 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position5)
+        word_path.remove(position5)
+        #reset the current string
+        current_string.remove(grid5)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice5.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+        
+def right_click_dice6(event):
+    #check to only delete letter if it was the last one pressed
+    if position6 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position6)
+        word_path.remove(position6)
+        #reset the current string
+        current_string.remove(grid6)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice6.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+        
+def right_click_dice7(event):
+    #check to only delete letter if it was the last one pressed
+    if position7 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position7)
+        word_path.remove(position7)
+        #reset the current string
+        current_string.remove(grid7)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice7.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])       
+
+def right_click_dice8(event):
+    #check to only delete letter if it was the last one pressed
+    if position8 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position8)
+        word_path.remove(position8)
+        #reset the current string
+        current_string.remove(grid8)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice8.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice9(event):
+    #check to only delete letter if it was the last one pressed
+    if position9 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position9)
+        word_path.remove(position9)
+        #reset the current string
+        current_string.remove(grid9)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice9.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice10(event):
+    #check to only delete letter if it was the last one pressed
+    if position10 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position10)
+        word_path.remove(position10)
+        #reset the current string
+        current_string.remove(grid10)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice10.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice11(event):
+    #check to only delete letter if it was the last one pressed
+    if position11 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position11)
+        word_path.remove(position11)
+        #reset the current string
+        current_string.remove(grid11)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice11.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice12(event):
+    #check to only delete letter if it was the last one pressed
+    if position12 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position12)
+        word_path.remove(position12)
+        #reset the current string
+        current_string.remove(grid12)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice12.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice13(event):
+    #check to only delete letter if it was the last one pressed
+    if position13 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position13)
+        word_path.remove(position13)
+        #reset the current string
+        current_string.remove(grid13)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice13.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice14(event):
+    #check to only delete letter if it was the last one pressed
+    if position14 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position14)
+        word_path.remove(position14)
+        #reset the current string
+        current_string.remove(grid14)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice14.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+def right_click_dice15(event):
+    #check to only delete letter if it was the last one pressed
+    if position15 not in word_path:
+        messagebox.showinfo(title="Input error", message="You can only delete the last letter!")
+    else:
+        buttons_pressed.remove(position15)
+        word_path.remove(position15)
+        #reset the current string
+        current_string.remove(grid15)
+        lbl_current_word["text"]='Word: '+''.join(current_string)
+        #reset the appearence of the button
+        btn_dice15.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
+
+#function to reveal the full list of words found to user only if the timer is at 0 so once the game has finished
+def check_full_list():
+    global minute, second
+    #ony run the command if timer =0
+    if minute==0 and second==0:
+        newWindow=tk.Toplevel(window)
+        newWindow.title('List of words')
+        #create frame to hold new list with correct formatting
+        #frame to hold buttons to end game/view full list(only if timer is ==0)
+        frm_new_window=tk.Frame(master=newWindow, bg=frm_pic_colors[1])
+        frm_new_window.grid(row=0, column=0, sticky="ew")
+        frm_new_window.grid_rowconfigure(0, weight=1)
+        frm_new_window.grid_columnconfigure(0, weight=1)
+        #label to hold full list of words avaiable
+        lbl_title_newwindow=tk.Label(frm_new_window, text ="List of words found inside the grid", font=("Lucida Sans Typewriter", 14, "bold underline"),
+                        fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+        lbl_title_newwindow.grid(row=0,column=0, padx=(5),pady=(5))
+        lbl_word_stats=tk.Label(master=frm_new_window, text='There were a total of  '+str(len(wordset))+' words found.', font=("Lucida Sans Typewriter", 11, "bold")
+                        ,fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+        lbl_word_stats.grid(row=1, column=0)
+        lbl_full_list=tk.Label(master=frm_new_window, text=', '.join(sorted(wordset)), font=("Lucida Sans Typewriter", 11, "bold"),wraplength=350, justify="center"
+                        ,fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+        lbl_full_list.grid(row=2, column=0)
+    else:
+        #create a message box pop up that displays all the infomation at the end of the game.
+        messagebox.showinfo(title="INPUT ERROR", message="Can only reveal list once game has ended and timer hits 0.")
 
 
 
@@ -822,10 +1060,10 @@ second=30
 timer_box = tk.Label(master=frm_timer,background=frm_pic_colors[1],font=("Lucida Sans Typewriter", 12, "bold"),	text='TIME LEFT:')
 timer_box.grid(row=0,column=0, padx=(20,5),pady=(5))
 
-mins_box = tk.Label(master=frm_timer,width=3, font=("Arial",18),text=minute, relief=tk.SUNKEN, borderwidth=2)
+mins_box = tk.Label(master=frm_timer,width=2, font=("Arial",18),text=minute, relief=tk.SUNKEN, borderwidth=2)
 mins_box.grid(row=0,column=1, pady=5)
   
-sec_box = tk.Label(master=frm_timer, width=3, font=("Arial",18),text=second, relief=tk.SUNKEN, borderwidth=2)
+sec_box = tk.Label(master=frm_timer, width=4, font=("Arial",18),text=second, relief=tk.SUNKEN, borderwidth=2)
 sec_box.grid(row=0,column=2, pady=5)
 
 btn_start = tk.Button(master=frm_timer,	text='START!', font=("Lucida Sans Typewriter", 12), command=start_timer)
@@ -850,51 +1088,83 @@ grid_font=("Minion Pro Med", 20,  "bold")
 btn_dice0=tk.Button(frm_grid, text='W', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1],
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice0_button_click)
 btn_dice0.grid(row=0, column=0, padx=(60, 2), pady=(10,2))
+btn_dice0.bind("<Button-3>", right_click_dice0)        #bind right click to the dice
+
 btn_dice1=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1],
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice1_button_click)
 btn_dice1.grid(row=0, column=1, padx=2, pady=(10,2))
+btn_dice1.bind("<Button-3>", right_click_dice1)        #bind right click to the dice
+
 btn_dice2=tk.Button(frm_grid, text='R', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice2_button_click)
 btn_dice2.grid(row=0, column=2, padx=2, pady=(10,2))
+btn_dice2.bind("<Button-3>", right_click_dice2)        #bind right click to the dice
+
 btn_dice3=tk.Button(frm_grid, text='D', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice3_button_click)
 btn_dice3.grid(row=0, column=3, padx=(2, 60), pady=(10,2))
+btn_dice3.bind("<Button-3>", right_click_dice3)        #bind right click to the dice
+
 btn_dice4=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice4_button_click)
 btn_dice4.grid(row=1, column=0, padx=(60, 2), pady=2)
+btn_dice4.bind("<Button-3>", right_click_dice4)        #bind right click to the dice
+
 btn_dice5=tk.Button(frm_grid, text='O', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice5_button_click)
 btn_dice5.grid(row=1, column=1, padx=2, pady=2)
+btn_dice5.bind("<Button-3>", right_click_dice5)        #bind right click to the dice
+
 btn_dice6=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice6_button_click)
 btn_dice6.grid(row=1, column=2, padx=2, pady=2)
+btn_dice6.bind("<Button-3>", right_click_dice6)        #bind right click to the dice
+
 btn_dice7=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice7_button_click)
 btn_dice7.grid(row=1, column=3, padx=(2, 60), pady=2)
+btn_dice7.bind("<Button-3>", right_click_dice7)        #bind right click to the dice
+
 btn_dice8=tk.Button(frm_grid, text='C', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice8_button_click)
 btn_dice8.grid(row=2, column=0, padx=(60, 2), pady=2)
+btn_dice8.bind("<Button-3>", right_click_dice8)        #bind right click to the dice
+
 btn_dice9=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice9_button_click)
 btn_dice9.grid(row=2, column=1, padx=2, pady=2)
+btn_dice9.bind("<Button-3>", right_click_dice9)        #bind right click to the dice
+
 btn_dice10=tk.Button(frm_grid, text='N', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice10_button_click)
 btn_dice10.grid(row=2, column=2, padx=2, pady=2)
+btn_dice10.bind("<Button-3>", right_click_dice10)        #bind right click to the dice
+
 btn_dice11=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice11_button_click)
 btn_dice11.grid(row=2, column=3, padx=(2, 60), pady=2)
+btn_dice11.bind("<Button-3>", right_click_dice11)        #bind right click to the dice
+
 btn_dice12=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice12_button_click)
 btn_dice12.grid(row=3, column=0, padx=(60, 2), pady=(2,10))
+btn_dice12.bind("<Button-3>", right_click_dice12)        #bind right click to the dice
+
 btn_dice13=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice13_button_click)
 btn_dice13.grid(row=3, column=1, padx=2, pady=(2,10))
+btn_dice13.bind("<Button-3>", right_click_dice13)        #bind right click to the dice
+
 btn_dice14=tk.Button(frm_grid, text=' ', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice14_button_click)
 btn_dice14.grid(row=3, column=2, padx=2, pady=(2,10))
+btn_dice14.bind("<Button-3>", right_click_dice14)        #bind right click to the dice
+
 btn_dice15=tk.Button(frm_grid, text='X', font=grid_font, relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1], 
                     image=pixelVirtual, height=grid_dim_pix[0], width=grid_dim_pix[1], compound="center", command=dice15_button_click)
 btn_dice15.grid(row=3, column=3, padx=(2, 60), pady=(2,10))
+btn_dice15.bind("<Button-3>", right_click_dice15)        #bind right click to the dice
+
 
 #frame to hold all of the words found by the player so far.
 frm_words_found=tk.Frame(master=window, bg=frm_pic_colors[1])
@@ -915,17 +1185,33 @@ lbl_word_list=tk.Label(master=frm_words_found,text='WORD \nCONX \nDRONX', font=(
                         ,fg=frm_pic_colors[0], bg=frm_pic_colors[1])
 lbl_word_list.grid(row=2, column=0)
 
+#frame to hold buttons to save/clear word
+frm_save_words=tk.Frame(master=window, bg=frm_pic_colors[1])
+frm_save_words.grid(row=6, column=0, sticky="ew")
+frm_save_words.grid_rowconfigure(0, weight=1)
+frm_save_words.grid_columnconfigure([0,1], weight=1)
+
 #click to add the word you have found from the grid to the list of words found in total
-save_btn=tk.Button(master=frm_words_found, text='SAVE WORD!', font=("Lucida Sans Typewriter", 12), command=save_string_button)
-save_btn.grid(row=3, column=0, padx=15, pady=10)
+save_btn=tk.Button(master=frm_save_words, text='SAVE WORD!', font=("Lucida Sans Typewriter", 12), command=save_string_button)
+save_btn.grid(row=0, column=0, padx=5, pady=5)
 
 #button that will clear the current string incase of mistake
-clear_btn=tk.Button(master=frm_words_found, text='Clear Word', font=("Lucida Sans Typewriter", 10), command=clear_string_button)
-clear_btn.grid(row=4, column=0, padx=15, pady=4)
+clear_btn=tk.Button(master=frm_save_words, text='Clear Word', font=("Lucida Sans Typewriter", 10), command=clear_string_button)
+clear_btn.grid(row=0, column=1, padx=(5,17), pady=5)
+
+#frame to hold buttons to end game/view full list(only if timer is ==0)
+frm_end_game=tk.Frame(master=window, bg=frm_pic_colors[1])
+frm_end_game.grid(row=7, column=0, sticky="ew")
+frm_end_game.grid_rowconfigure(0, weight=1)
+frm_end_game.grid_columnconfigure([0,1], weight=1)
 
 #button that will end the game and check for how many words could be found and how many the user found and display a score
-check_btn=tk.Button(master=frm_words_found, text='Check List', font=("Lucida Sans Typewriter", 10), command=end_game)
-check_btn.grid(row=5, column=0, padx=15, pady=10)
+check_btn=tk.Button(master=frm_end_game, text='End Game', font=("Lucida Sans Typewriter", 10), command=end_game)
+check_btn.grid(row=5, column=0, padx=(14,5), pady=5)
+
+#button that will end the game and check for how many words could be found and how many the user found and display a score
+check_list_btn=tk.Button(master=frm_end_game, text='Check List', font=("Lucida Sans Typewriter", 10), command=check_full_list)
+check_list_btn.grid(row=5, column=1, padx=5, pady=5)
 
 # Run the application
 window.mainloop()
