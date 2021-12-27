@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import messagebox
 import time
 import numpy as np
+#import a dictionary module that will find the defintions of said words
+from PyDictionary import PyDictionary
+dictionary=PyDictionary()
 
 #generate the grid from the 16 different dice
 def get_grid():
@@ -446,11 +449,12 @@ def valid_move_check(word_path, current_position):
           (3, 1): [(2, 0), (3, 0), (3, 2), (2, 2), (2, 1)],
           (3, 2): [(2, 1), (3, 1), (3, 3), (2, 3), (2, 2)],
           (3, 3): [(2, 2), (3, 2), (2, 3)]}
-    #print(word_path)
-    if bool(word_path) == False: #if grid dice has been clicked and then removed check  here and allow to be re clicked to start word
+    #print(buttons_pressed)
+    if bool(buttons_pressed) == False: #if grid dice has been clicked and then removed check  here and allow to be re clicked to start word
         return True
     else:
-        previous_position=word_path[0]
+        previous_position=buttons_pressed[-1]   #last entry of buttons pressed is the last button clicked.
+        #print(previous_position)
     #print(previous_position)
     if previous_position != 0:
         #print('not first string')
@@ -977,18 +981,78 @@ def right_click_dice15(event):
         btn_dice15.config(relief=tk.RAISED, borderwidth=4, fg=grid_colors[0], bg=grid_colors[1])
 
 #function to reveal the full list of words found to user only if the timer is at 0 so once the game has finished
+#this function opens a new window
 def check_full_list():
     global minute, second
     #ony run the command if timer =0
+        
+    def get_definition():
+        user_word=(ent_word.get()).upper()
+        #print(user_word)
+        #clear entry for next guess
+        ent_word.delete(0, "end")
+        ent_word.insert(0, "")
+        #check that a guess word has been input and not mis clicked.
+        if user_word not in wordset:
+            messagebox.showinfo(title="Input error", message=str(user_word)+" is not in the list of words found." )
+        else: 
+            #find the definitions and meaning of the word
+            definition_user_word=dictionary.meaning(user_word)
+            
+            #if a definition was found using dictionary display a new window else an error message box
+            if bool(definition_user_word)==True:
+                #Iterate over key/value pairs in dict and append to corresponding lists to be itterated over and format correctly
+                keys=[]
+                definitions=[]
+                for key, value in definition_user_word.items():
+                    keys.append(key)
+                    definitions.append(value)
+                
+                #create a new window pop up with the word definition here
+                newWindow2=tk.Toplevel(newWindow)
+                newWindow2.title('Definition')
+                #create frame to hold new list with correct formatting
+                #frame to hold definitions
+                frm_new_window_definition=tk.Frame(master=newWindow2, bg=frm_pic_colors[1])
+                frm_new_window_definition.grid(row=0, column=0, sticky="ew")
+                frm_new_window_definition.grid_rowconfigure(0, weight=1)
+                frm_new_window_definition.grid_columnconfigure(0, weight=1)
+                
+                #label word
+                lbl_user_word=tk.Label(frm_new_window_definition, text=user_word, font=("Lucida Sans Typewriter", 14, "bold underline"),
+                            fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+                lbl_user_word.grid(row=0, column=0)            
+                #label word type
+                lbl_user_word_type=tk.Label(frm_new_window_definition, text=' ', font=("Lucida Sans Typewriter", 10, "bold"),
+                            fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+                lbl_user_word_type.grid(row=1, column=0)
+                #label definition
+                lbl_user_word_definition=tk.Label(frm_new_window_definition, text=' ', font=("Lucida Sans Typewriter", 12),wraplength=350, justify="center",
+                            fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+                lbl_user_word_definition.grid(row=2, column=0)
+                
+                #pair each definitons with the type of word it is
+                lbl_user_word_type["text"]=keys[0]
+                lbl_user_word_definition["text"]=definitions[0][0].upper()
+            else:
+                #display a message to tell user no message was found
+                messagebox.showinfo(title="INPUT ERROR", message="There was no definition found for this word")
+            
+    #run the same commands as if the button is pressed to get the definition if enter is pressed as well.
+    def enter_pressed_get_definition(event):
+        get_definition()
+        
     if minute==0 and second==0:
         newWindow=tk.Toplevel(window)
         newWindow.title('List of words')
+        
         #create frame to hold new list with correct formatting
         #frame to hold buttons to end game/view full list(only if timer is ==0)
         frm_new_window=tk.Frame(master=newWindow, bg=frm_pic_colors[1])
         frm_new_window.grid(row=0, column=0, sticky="ew")
         frm_new_window.grid_rowconfigure(0, weight=1)
         frm_new_window.grid_columnconfigure(0, weight=1)
+        
         #label to hold full list of words avaiable
         lbl_title_newwindow=tk.Label(frm_new_window, text ="List of words found inside the grid", font=("Lucida Sans Typewriter", 14, "bold underline"),
                         fg=frm_pic_colors[0], bg=frm_pic_colors[1])
@@ -999,6 +1063,23 @@ def check_full_list():
         lbl_full_list=tk.Label(master=frm_new_window, text=', '.join(sorted(wordset)), font=("Lucida Sans Typewriter", 11, "bold"),wraplength=350, justify="center"
                         ,fg=frm_pic_colors[0], bg=frm_pic_colors[1])
         lbl_full_list.grid(row=2, column=0)
+        lbl_search=tk.Label(master=frm_new_window, text='Search for a word to find definition', font=("Lucida Sans Typewriter", 11, "bold underline"),
+                        fg=frm_pic_colors[0], bg=frm_pic_colors[1])
+        lbl_search.grid(row=3, column=0)
+        #frame to hold the entry box and look up meaning button
+        frm_search_meanings=tk.Frame(master=newWindow, bg=frm_pic_colors[1])
+        frm_search_meanings.grid(row=1, column=0, sticky="ew")
+        frm_search_meanings.grid_rowconfigure(0, weight=1)
+        frm_search_meanings.grid_columnconfigure([0,1], weight=1)
+        
+        #entry for the word to look up that can be typed
+        ent_word=tk.Entry(master=frm_search_meanings)
+        ent_word.grid(row=0, column=0, pady=(5,5))
+        ent_word.bind("<Return>", enter_pressed_get_definition)        #bind ENTER to the entry that will run the same as button pressed
+        
+        #button to search for the word that is in the entry box
+        btn_search_meaning=tk.Button(master=frm_search_meanings, text='Get Definition', font=("Lucida Sans Typewriter", 11), command=get_definition)
+        btn_search_meaning.grid(row=0, column=1, pady=(5,5))
     else:
         #create a message box pop up that displays all the infomation at the end of the game.
         messagebox.showinfo(title="INPUT ERROR", message="Can only reveal list once game has ended and timer hits 0.")
