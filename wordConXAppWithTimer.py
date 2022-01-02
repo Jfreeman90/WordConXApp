@@ -117,6 +117,7 @@ def roll_grid():
     
     #reset word list
     lbl_new_game["text"]="Letters must be connected by adjacent tiles!\nGoodluck!"
+    btn_start["text"]='START!'
     player_word_list=[]
     current_string=[]
     lbl_word_list_title["text"]='Words found so far'
@@ -364,6 +365,7 @@ def end_game():
     global grid0,grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8, grid9, grid10, grid11, grid12, grid13, grid14, grid15
     del grid0,grid1, grid2, grid3, grid4, grid5, grid6, grid7, grid8, grid9, grid10, grid11, grid12, grid13, grid14, grid15
 
+#save current word to the list and update the display
 def save_string_button():
     global current_string, word_path, player_word_list, buttons_pressed
     #print('Current string:',current_string)
@@ -381,7 +383,7 @@ def save_string_button():
 
     current_string=[]   #reset the current string to empty for a new word
     #print('Player word list:', player_word_list)
-    lbl_word_list["text"]=', '.join(player_word_list)   #display the players current words they have found
+    lbl_word_list["text"]=', '.join(sorted(player_word_list))   #display the players current words they have found
     lbl_current_word["text"]=' '                        #display a cleared current word
     #reset all clicked buttons
     btn_dice0.config(fg=grid_colors[0], bg=grid_colors[1], relief=tk.RAISED, borderwidth=4)
@@ -403,7 +405,8 @@ def save_string_button():
     #reset word_path
     word_path=[0]
     buttons_pressed=[]
-    
+
+#reset all of the string variables and reset the grid if player wants to remake the word
 def clear_string_button():
     global current_string, word_path, buttons_pressed
     current_string=[]   #reset the current string to empty for a new word
@@ -428,6 +431,10 @@ def clear_string_button():
     #reset word_path
     word_path=[0]
     buttons_pressed=[]
+
+#allow string to be saved by oressing enter instead of just the button
+def enter_pressed(event):
+    save_string_button()
 
 #returns true if the letter pressed is a neighbour to the previous click.
 def valid_move_check(word_path, current_position):
@@ -1097,7 +1104,7 @@ global buttons_pressed
 buttons_pressed=[]
     
     
-    
+
 #------------------ALL OF THE BELOW IS FORMATING FOR THE GUI AND ITS DISPLAYS---------------------------
 # Create instance
 window = tk.Tk()
@@ -1246,6 +1253,8 @@ btn_dice15=tk.Button(frm_grid, text='X', font=grid_font, relief=tk.RAISED, borde
 btn_dice15.grid(row=3, column=3, padx=(2, 60), pady=(2,10))
 btn_dice15.bind("<Button-3>", right_click_dice15)        #bind right click to the dice
 
+frm_grid.bind("<Return>", enter_pressed)        #bind a key which will be numbers to the canvas with a command to draw the number on the canvas
+frm_grid.focus_set() #set focus of canvas here so when a key is pressed it can be used
 
 #frame to hold all of the words found by the player so far.
 frm_words_found=tk.Frame(master=window, bg=frm_pic_colors[1])
